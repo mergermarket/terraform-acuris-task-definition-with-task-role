@@ -10,7 +10,8 @@ locals {
 }
 
 module "task_definition" {
-  source                = "github.com/mergermarket/tf_ecs_task_definition"
+  source                = "mergermarket/ecs-task-definition/acuris"
+  version               = "2.0.0"
   family                = var.family
   container_definitions = var.container_definitions
   task_role_arn         = aws_iam_role.task_role.arn
@@ -101,4 +102,3 @@ resource "aws_iam_role_policy" "execution_role_policy" {
 EOF
 
 }
-
