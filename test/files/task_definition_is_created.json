@@ -1,0 +1,160 @@
+{
+  "resource_changes": [
+    {
+      "address": "module.taskdef_with_role.aws_iam_role.ecs_tasks_execution_role",
+      "module_address": "module.taskdef_with_role",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "ecs_tasks_execution_role",
+      "provider_name": "aws",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "assume_role_policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"\",\n      \"Effect\": \"Allow\",\n      \"Action\": \"sts:AssumeRole\",\n      \"Principal\": {\n        \"Service\": \"ecs-tasks.amazonaws.com\"\n      }\n    }\n  ]\n}",
+          "description": "Task execution role for tf_ecs_task_def_test_family",
+          "force_detach_policies": false,
+          "max_session_duration": 3600,
+          "name_prefix": "tf_ecs_task_def_test_family",
+          "path": "/",
+          "permissions_boundary": null,
+          "tags": null
+        },
+        "after_unknown": {
+          "arn": true,
+          "create_date": true,
+          "id": true,
+          "name": true,
+          "unique_id": true
+        }
+      }
+    },
+    {
+      "address": "module.taskdef_with_role.aws_iam_role.task_role",
+      "module_address": "module.taskdef_with_role",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "task_role",
+      "provider_name": "aws",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "assume_role_policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"\",\n      \"Effect\": \"Allow\",\n      \"Action\": \"sts:AssumeRole\",\n      \"Principal\": {\n        \"Service\": \"ecs-tasks.amazonaws.com\"\n      }\n    }\n  ]\n}",
+          "description": "Task role for tf_ecs_task_def_test_family",
+          "force_detach_policies": false,
+          "max_session_duration": 3600,
+          "name_prefix": "tf_ecs_task_def_test_family",
+          "path": "/",
+          "permissions_boundary": null,
+          "tags": null
+        },
+        "after_unknown": {
+          "arn": true,
+          "create_date": true,
+          "id": true,
+          "name": true,
+          "unique_id": true
+        }
+      }
+    },
+    {
+      "address": "module.taskdef_with_role.aws_iam_role_policy.execution_role_policy",
+      "module_address": "module.taskdef_with_role",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "execution_role_policy",
+      "provider_name": "aws",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name": "role_policy",
+          "name_prefix": null,
+          "policy": "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n      {\n          \"Effect\": \"Allow\",\n          \"Action\": [\n              \"ecr:GetAuthorizationToken\",\n              \"ecr:BatchCheckLayerAvailability\",\n              \"ecr:GetDownloadUrlForLayer\",\n              \"ecr:BatchGetImage\",\n              \"logs:CreateLogStream\",\n              \"logs:PutLogEvents\"\n          ],\n          \"Resource\": \"*\"\n      },\n      {\n          \"Sid\": \"\",\n          \"Effect\": \"Allow\",\n          \"Action\": [\n              \"secretsmanager:List*\",\n              \"secretsmanager:DescribeSecret\"\n          ],\n          \"Resource\": \"*\"\n      },\n      {\n          \"Sid\": \"\",\n          \"Effect\": \"Allow\",\n          \"Action\": \"secretsmanager:GetSecretValue\",\n          \"Resource\": \"arn:aws:secretsmanager:eu-west-1::secret:platform_secrets/*\"\n      },\n      {\n          \"Sid\": \"\",\n          \"Effect\": \"Allow\",\n          \"Action\": \"secretsmanager:GetSecretValue\",\n          \"Resource\": \"arn:aws:secretsmanager:eu-west-1::secret:///*\"\n      }\n    ]\n}\n"
+        },
+        "after_unknown": {
+          "id": true,
+          "role": true
+        }
+      }
+    },
+    {
+      "address": "module.taskdef_with_role.aws_iam_role_policy.role_policy",
+      "module_address": "module.taskdef_with_role",
+      "mode": "managed",
+      "type": "aws_iam_role_policy",
+      "name": "role_policy",
+      "provider_name": "aws",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "name_prefix": "tf_ecs_task_def_test_family",
+          "policy": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": {\n    \"Effect\": \"Allow\",\n    \"Action\": \"s3:ListBucket\",\n    \"Resource\": \"arn:aws:s3:::example_bucket\"\n  }\n}\n"
+        },
+        "after_unknown": {
+          "id": true,
+          "name": true,
+          "role": true
+        }
+      }
+    },
+    {
+      "address": "module.taskdef_with_role.module.task_definition.aws_ecs_task_definition.taskdef",
+      "module_address": "module.taskdef_with_role.module.task_definition",
+      "mode": "managed",
+      "type": "aws_ecs_task_definition",
+      "name": "taskdef",
+      "provider_name": "aws",
+      "change": {
+        "actions": [
+          "create"
+        ],
+        "before": null,
+        "after": {
+          "container_definitions": "[{\"cpu\":10,\"essential\":true,\"image\":\"hello-world:latest\",\"memory\":128,\"name\":\"web\"}]",
+          "cpu": null,
+          "family": "tf_ecs_task_def_test_family",
+          "ipc_mode": null,
+          "memory": null,
+          "pid_mode": null,
+          "placement_constraints": [],
+          "proxy_configuration": [],
+          "requires_compatibilities": null,
+          "tags": null,
+          "volume": [
+            {
+              "docker_volume_configuration": [],
+              "host_path": "/tmp/dummy_volume",
+              "name": "dummy"
+            }
+          ]
+        },
+        "after_unknown": {
+          "arn": true,
+          "execution_role_arn": true,
+          "id": true,
+          "network_mode": true,
+          "placement_constraints": [],
+          "proxy_configuration": [],
+          "revision": true,
+          "task_role_arn": true,
+          "volume": [
+            {
+              "docker_volume_configuration": []
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
