@@ -1,5 +1,9 @@
+terraform {
+  required_version = ">= 0.12"
+}
+
 provider "aws" {
-  version                     = "~> 1.16"
+  version                     = ">= 2.15"
   skip_credentials_validation = true
   skip_metadata_api_check     = true
   skip_get_ec2_platforms      = true
@@ -13,7 +17,7 @@ provider "aws" {
 
 variable "task_volume_param" {
   description = "The test can set this var to be passed to the module"
-  type        = "map"
+  type        = map(string)
   default     = {}
 }
 
@@ -24,12 +28,12 @@ variable "family_param" {
 
 variable "assume_role_policy" {
   description = "A valid IAM policy for assuming roles - optional"
-  type        = "string"
+  type        = string
   default     = ""
 }
 
 variable "release" {
-  type        = "map"
+  type        = map(string)
   description = "Metadata about the release"
   default     = {}
 }
@@ -43,7 +47,7 @@ module "taskdef_with_role" {
   source  = "../.."
   is_test = true
 
-  family = "${var.family_param}"
+  family = var.family_param
 
   container_definitions = [
     <<END
@@ -69,14 +73,14 @@ END
 }
 END
 
-  volume = "${var.task_volume_param}"
+  volume = var.task_volume_param
 }
 
 module "taskdef_with_role_and_assume_role" {
   source  = "../.."
   is_test = true
 
-  family = "${var.family_param}"
+  family = var.family_param
 
   container_definitions = [
     <<END
@@ -102,8 +106,8 @@ END
 }
 END
 
-  volume             = "${var.task_volume_param}"
-  assume_role_policy = "${data.aws_iam_policy_document.assume-role-policy.json}"
+  volume             = var.task_volume_param
+  assume_role_policy = data.aws_iam_policy_document.assume-role-policy.json
 }
 
 data "aws_iam_policy_document" "assume-role-policy" {
