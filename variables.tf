@@ -41,3 +41,8 @@ variable "is_test" {
   default     = false
 }
 
+variable "network_mode" {
+  description = "The Docker networking mode to use for the containers in the task"
+  type        = string
+  default     = "bridge"
+}
