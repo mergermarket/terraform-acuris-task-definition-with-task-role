@@ -1,6 +1,6 @@
 # terraform-acuris-task-definition-with-task-role
 
-[![Build Status](https://travis-ci.org/mergermarket/terraform-acuris-task-definition-with-task-role.svg?branch=master)](https://travis-ci.org/mergermarket/terraform-acuris-task-definition-with-task-role)
+[![Build Status](https://travis-ci.com/mergermarket/terraform-acuris-task-definition-with-task-role.svg?branch=master)](https://travis-ci.com/mergermarket/terraform-acuris-task-definition-with-task-role)
 
 ## Usage
 Creates a task definition for an ECS service, with an IAM role for the task associated.
