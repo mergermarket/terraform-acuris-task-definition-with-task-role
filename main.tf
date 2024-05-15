@@ -11,7 +11,7 @@ locals {
 
 module "task_definition" {
   source                = "mergermarket/ecs-task-definition/acuris"
-  version               = "2.2.0"
+  version               = "2.3.0"
   family                = var.family
   container_definitions = var.container_definitions
   task_role_arn         = aws_iam_role.task_role.arn
@@ -19,6 +19,7 @@ module "task_definition" {
   network_mode          = var.network_mode
   volume                = var.volume
   placement_constraint_on_demand_only = var.placement_constraint_on_demand_only
+  tags                  = var.tags
 }
 
 resource "aws_iam_role_policy" "role_policy" {
