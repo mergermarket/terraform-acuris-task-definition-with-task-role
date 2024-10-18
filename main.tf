@@ -28,6 +28,29 @@ resource "aws_iam_role_policy" "role_policy" {
   policy      = var.policy
 }
 
+resource "aws_iam_role_policy" "ecs_exec_policy" {
+  name = "ecs_exec_policy"
+  role = aws_iam_role.task_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "ssmmessages:CreateControlChannel",
+          "ssmmessages:CreateDataChannel",
+          "ssmmessages:OpenControlChannel",
+          "ssmmessages:OpenDataChannel",
+          "ecs:ExecuteCommand",
+          "ecs:DescribeTasks"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
 resource "aws_iam_role" "task_role" {
   name_prefix = local.name_prefix
   description = "Task role for ${var.family}"
