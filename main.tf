@@ -91,6 +91,25 @@ resource "aws_iam_role_policy" "execution_role_policy" {
     "Version": "2012-10-17",
     "Statement": [
       {
+          "Sid": "OTelSsm",
+          "Effect": "Allow",
+          "Action": [
+              "ssm:Describe*",
+              "ssm:Get*",
+              "ssm:List*"
+          ],
+          "Resource": "*"
+      },
+      {
+          "Sid": "OTelCloudWatch",
+          "Effect": "Allow",
+          "Action": [
+              "logs:*",
+              "cloudwatch:GenerateQuery"
+          ],
+          "Resource": "*"
+      },    
+      {
           "Effect": "Allow",
           "Action": [
               "ecr:GetAuthorizationToken",
