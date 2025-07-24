@@ -56,6 +56,7 @@ resource "aws_iam_role" "task_role" {
   description = "Task role for ${var.family}"
 
   assume_role_policy = var.assume_role_policy == "" ? data.aws_iam_policy_document.instance-assume-role-policy.json : var.assume_role_policy
+  tags       = var.tags
 }
 
 data "aws_iam_policy_document" "instance-assume-role-policy" {
@@ -73,6 +74,7 @@ resource "aws_iam_role" "ecs_tasks_execution_role" {
   name_prefix        = local.name_prefix
   description        = "Task execution role for ${var.family}"
   assume_role_policy = data.aws_iam_policy_document.instance-assume-role-policy.json
+  tags               = var.tags
 }
 
 data "aws_caller_identity" "current" {
