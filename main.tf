@@ -136,13 +136,13 @@ resource "aws_iam_role_policy" "execution_role_policy" {
           "Sid": "",
           "Effect": "Allow",
           "Action": "secretsmanager:GetSecretValue",
-          "Resource": "arn:aws:secretsmanager:${data.aws_region.current.name}:${local.account_id}:secret:platform_secrets/*"
+          "Resource": "arn:aws:secretsmanager:${data.aws_region.current.region}:${local.account_id}:secret:platform_secrets/*"
       },
       {
           "Sid": "",
           "Effect": "Allow",
           "Action": "secretsmanager:GetSecretValue",
-          "Resource": "arn:aws:secretsmanager:${data.aws_region.current.name}:${local.account_id}:secret:${local.team}/${var.env}/${local.component}/*"
+          "Resource": "arn:aws:secretsmanager:${data.aws_region.current.region}:${local.account_id}:secret:${local.team}/${var.env}/${local.component}/*"
       }
     ]
 }
