@@ -152,7 +152,7 @@ EOF
 }
 
 resource "aws_iam_policy_attachment" "execution_role_policy" {
-  for_each   = length(var.volume_configured_at_launch) > 0 ? ["AmazonECSInfrastructureRolePolicyForVolumes"] : []
+  for_each   = toset(length(var.volume_configured_at_launch) > 0 ? ["AmazonECSInfrastructureRolePolicyForVolumes"] : [])
   name       = aws_iam_role.ecs_tasks_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/${each.value}"
 }
