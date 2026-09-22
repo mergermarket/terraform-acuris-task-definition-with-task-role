@@ -30,6 +30,12 @@ variable "volume" {
   default     = {}
 }
 
+variable "volume_configured_at_launch" {
+  description = "Name of volume to be configured at launch (i.e. in service)"
+  type        = string
+  default     = ""
+}
+
 variable "assume_role_policy" {
   description = "A valid IAM policy for assuming roles - optional"
   type        = string

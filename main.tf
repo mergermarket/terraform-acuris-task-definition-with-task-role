@@ -18,6 +18,7 @@ module "task_definition" {
   execution_role_arn    = aws_iam_role.ecs_tasks_execution_role.arn
   network_mode          = var.network_mode
   volume                = var.volume
+  volume_configured_at_launch = var.volume_configured_at_launch
   placement_constraint_on_demand_only = var.placement_constraint_on_demand_only
   tags                  = var.tags
 }
@@ -148,4 +149,10 @@ resource "aws_iam_role_policy" "execution_role_policy" {
 }
 EOF
 
+}
+
+resource "aws_iam_policy_attachment" "execution_role_policy" {
+  for_each   = toset(length(var.volume_configured_at_launch) > 0 ? ["AmazonECSInfrastructureRolePolicyForVolumes"] : [])
+  name       = aws_iam_role.ecs_tasks_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/${each.value}"
 }
